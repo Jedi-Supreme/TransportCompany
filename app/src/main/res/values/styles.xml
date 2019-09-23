@@ -14,4 +14,13 @@
         <item name="android:background">@color/colorAccent</item>
     </style>
 
+    <style name="Comp_type_RB">
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">@dimen/margin_tiny</item>
+        <item name="android:padding">@dimen/margin_tiny</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@drawable/rounded_dark_border</item>
+    </style>
+
 </resources>

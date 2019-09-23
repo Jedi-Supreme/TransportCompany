@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_padding">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_comp_name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:id="@+id/et_comp_name"
+            android:hint="@string/comp_name_lbl"
+            android:textSize="@dimen/normal_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/margin_small"
+        android:id="@+id/tv_trans_type"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_comp_name"
+        android:textSize="@dimen/normal_text"
+        android:text="@string/trans_type_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/rbg_trans_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tv_trans_type">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/rb_coach"
+            style="@style/Comp_type_RB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_airport_shuttle_red_24dp"
+            android:drawablePadding="@dimen/margin_tiny"
+            android:text="@string/coach_lbl" />
+
+        <RadioButton
+            android:id="@+id/rb_flight"
+            style="@style/Comp_type_RB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_flight_takeoff_red_24dp"
+            android:text="@string/flight_lbl" />
+
+        <RadioButton
+            android:id="@+id/rb_rail"
+            style="@style/Comp_type_RB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_directions_railway_red_24dp"
+            android:text="@string/railway_lbl" />
+
+    </RadioGroup>
+
+    <Button
+        android:text="@string/confirm_lbl"
+        style="@style/AppButtons_style"
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@id/rbg_trans_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

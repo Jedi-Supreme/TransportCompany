@@ -3,4 +3,10 @@
     <string name="comp_mail_lbl">Company Email</string>
     <string name="password_lbl">Password</string>
     <string name="login_lbl">Login</string>
+    <string name="coach_lbl">Coach</string>
+    <string name="flight_lbl">Flight</string>
+    <string name="railway_lbl">Railway</string>
+    <string name="comp_name_lbl">Company Name</string>
+    <string name="trans_type_lbl">Transport Type</string>
+    <string name="confirm_lbl">Confirm</string>
 </resources>

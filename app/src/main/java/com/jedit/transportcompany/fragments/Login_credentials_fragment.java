@@ -1,12 +1,14 @@
 package com.jedit.transportcompany.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,34 +22,41 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.jedit.transportcompany.R;
 import com.jedit.transportcompany.activities.Dashboard;
+import com.jedit.transportcompany.activities.LoginActivity;
 import com.jedit.transportcompany.common;
 
-import java.util.concurrent.Executor;
+import java.util.Objects;
 
 public class Login_credentials_fragment extends Fragment implements View.OnClickListener{
 
+    private View view;
     private TextInputEditText et_login_email, et_login_password;
     private ProgressBar probar_cred_login;
     private TextInputLayout input_login_password;
+
 
     //==========================================ON CREATE===========================================
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.frag_credentials_input,container,false);
+        if (view == null){
+            view = inflater.inflate(R.layout.frag_credentials_input,container,false);
 
-        probar_cred_login = view.findViewById(R.id.probar_cred_login);
-        et_login_password = view.findViewById(R.id.et_login_password);
-        et_login_email = view.findViewById(R.id.et_login_email);
-        input_login_password = view.findViewById(R.id.input_login_password);
+            probar_cred_login = view.findViewById(R.id.probar_cred_login);
+            et_login_password = view.findViewById(R.id.et_login_password);
+            et_login_email = view.findViewById(R.id.et_login_email);
+            input_login_password = view.findViewById(R.id.input_login_password);
 
-        et_login_password.setOnFocusChangeListener((v, hasFocus)
-                -> input_login_password.setPasswordVisibilityToggleEnabled(hasFocus));
+            et_login_password.setOnFocusChangeListener((v, hasFocus)
+                    -> input_login_password.setPasswordVisibilityToggleEnabled(hasFocus));
 
-        Button bt_login = view.findViewById(R.id.bt_login);
+            Button bt_login = view.findViewById(R.id.bt_login);
 
-        bt_login.setOnClickListener(this);
+            bt_login.setOnClickListener(this);
+        }
+
+
 
         return view;
     }
@@ -79,10 +88,15 @@ public class Login_credentials_fragment extends Fragment implements View.OnClick
         probar_cred_login.setVisibility(View.VISIBLE);
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, task -> {
+                .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        toDashboard();
+                        if (getActivity() instanceof LoginActivity){
+                            SharedPreferences.Editor prefEditor = common.app_pref(getActivity().getApplicationContext()).edit();
+                            prefEditor.putString(common.COMP_STATE,common.STATE_SETUP).apply();
+                            ((LoginActivity) getActivity()).loadCompDetails_frag();
+                        }
+                        //Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                         probar_cred_login.setVisibility(View.INVISIBLE);
                         probar_cred_login.clearAnimation();
 
